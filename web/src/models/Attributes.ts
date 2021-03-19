@@ -1,5 +1,3 @@
-import { UserProps } from "./User";
-
 export class Attributes<T> {
   constructor(private data: T) {}
 
@@ -16,7 +14,3 @@ export class Attributes<T> {
     Object.assign(this.data, update); // From update to override this.data
   }
 }
-
-const attrs = new Attributes<UserProps>({ id: 5, name: "Pierro", age: 66 });
-
-const name = attrs.get("name");
