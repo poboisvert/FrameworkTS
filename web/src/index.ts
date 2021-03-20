@@ -1,17 +1,18 @@
 //console.log("First");
 
 import { User } from "./models/User";
-import axios from "axios";
 
-const user = new User({ id: 1, name: "oldNew", age: 66 });
+const user = User.buildUser({ id: 1 });
 
-user.on("save", () => {
+user.on("change", () => {
   console.log(user);
 });
 
+user.fetch();
+
 /* user.trigger("change"); */
 
-user.save();
+/* user.save(); */
 /* user.set({ name: "NEW", age: 999 });
 
 user.save(); */
@@ -42,7 +43,3 @@ axios.post("http://localhost:3000/users", {
 /* setTimeout(() => {
   console.log(user);
 }, 4000); */
-
-user.events.on("change", () => {
-  console.log("");
-});
