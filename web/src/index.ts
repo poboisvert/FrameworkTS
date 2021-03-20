@@ -1,15 +1,18 @@
 //console.log("First");
 
-import { User } from "./models/User";
+import { UserForm } from "./views/UserForm";
 
-const collection = User.buildUserCollection();
+const userFrom = new UserForm(document.getElementById("root"));
+
+userFrom.render();
+/* const collection = User.buildUserCollection();
 
 collection.on("change", () => {
   console.log(collection);
 });
 
 collection.fetch();
-
+ */
 /* axios.get("http://localhost:3000/users").then((res:AxiosResponse) {
   console.log(res.data)
 }) */
