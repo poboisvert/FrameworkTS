@@ -2,14 +2,26 @@
 
 import { User } from "./models/User";
 
-const user = User.buildUser({ id: 1 });
+const collection = User.buildUserCollection();
+
+collection.on("change", () => {
+  console.log(collection);
+});
+
+collection.fetch();
+
+/* axios.get("http://localhost:3000/users").then((res:AxiosResponse) {
+  console.log(res.data)
+}) */
+
+/* const user = User.buildUser({ id: 1 });
 
 user.on("change", () => {
   console.log(user);
 });
 
 user.fetch();
-
+ */
 /* user.trigger("change"); */
 
 /* user.save(); */

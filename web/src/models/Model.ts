@@ -21,14 +21,14 @@ interface HasId {
 }
 
 export class Model<T extends HasId> {
-  // Solve id issur T extends hasId
+  // Solve id issue T extends hasId
   constructor(
     private attributes: ModelAttributes<T>,
     private events: Events,
     private sync: Sync<T>
   ) {}
 
-  get on() {
+  /*   get on() {
     return this.events.on;
   }
   //
@@ -37,7 +37,13 @@ export class Model<T extends HasId> {
   }
   get get() {
     return this.attributes.get;
-  }
+  } */
+
+  on = this.events.on;
+
+  trigger = this.events.trigger;
+
+  get = this.attributes.get;
 
   set(update: T): void {
     this.attributes.set(update);
