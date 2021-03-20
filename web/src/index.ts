@@ -3,12 +3,15 @@
 import { User } from "./models/User";
 import axios from "axios";
 
-const user = new User({ id: 1 });
+const user = new User({ id: 1, name: "oldNew", age: 66 });
 
-user.on("change", () => {
-  console.log("user changed");
+user.on("save", () => {
+  console.log(user);
 });
 
+/* user.trigger("change"); */
+
+user.save();
 /* user.set({ name: "NEW", age: 999 });
 
 user.save(); */
