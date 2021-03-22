@@ -1,4 +1,5 @@
 import { UserList } from "./views/UserList";
+import { UserEdit } from "./views/UserEdit";
 import { Collection } from "./models/Collection";
 import { User, UserProps } from "./models/User";
 
@@ -12,6 +13,10 @@ const users = new Collection(
 users.on("change", () => {
   const root = document.getElementById("root");
 
+  //const userEdit = new UserEdit(root, user);
+  //userEdit.render(); // TSC config Strict null fix
+  //console.log(userEdit);
+
   if (root) {
     new UserList(root, users).render();
   }
@@ -19,12 +24,10 @@ users.on("change", () => {
 
 users.fetch();
 
+const user = User.buildUser({ name: "NAME1", age: 18 });
+
 // Loading HTML
 
-/* const userEdit = new UserEdit(root, user);
-userEdit.render(); // TSC config Strict null fix
-console.log(userEdit);
- */
 /* const collection = User.buildUserCollection();
 
 collection.on("change", () => {
