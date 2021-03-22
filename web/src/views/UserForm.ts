@@ -1,31 +1,39 @@
-import { User } from "../models/User";
+import { User, UserProps } from "../models/User";
+import { View } from "./View";
 
-export class UserForm {
-  constructor(public parent: Element, public model: User) {
-    this.bindModel();
-  }
-
-  bindModel(): void {
-    this.model.on("change", () => {
-      this.render();
-    });
-  }
+export class UserForm extends View<User, UserProps> {
   // Functions
   eventsMap(): { [key: string]: () => void } {
     return {
       //"click:button": this.onButtonClick, // onClick
       //"mouseenter:h1": this.onHeaderHover, // Mouse over
       "click:.set-age": this.onSetAgeClick, // onClick
+      "click:.set-name": this.onSetNameClick, // onClick
+      "click:.save-model": this.onSaveClick, // onClick
     };
   }
 
   onHeaderHover(): void {
     console.log("Hover");
+    //  this.model.get("name")
   }
 
   onButtonClick(): void {
     // console.log("Clicked");
   }
+
+  onSaveClick = (): void => {
+    this.model.save();
+  };
+
+  onSetNameClick = (): void => {
+    const input = this.parent.querySelector("input");
+
+    if (input) {
+      const name = input.value;
+      this.model.set({ name });
+    }
+  };
 
   onSetAgeClick = (): void => {
     console.log("onSetAgeClick");
@@ -37,39 +45,11 @@ export class UserForm {
     // This is string not HTML
     return `
       <div>
-        <h1>User Form</h1>
-        <div>Username: ${this.model.get("name")}</div>
-        <div>UsernAgeame: ${this.model.get("age")}</div>
-        <input />
-        <button>Submit</button>
+        <input placeholder="${this.model.get("name")}"/>
+        <button class="set-name">Change Name</button>
         <button class="set-age">Set Random Age</button>
+        <button class="save-model">Save User</button>
       </div>
       `;
-  }
-
-  bindEvents(fragment: DocumentFragment): void {
-    const eventsMap = this.eventsMap();
-
-    for (let eventKey in eventsMap) {
-      const [eventName, selector] = eventKey.split(":"); // ES6
-      // eventName : click
-      // selector: button
-
-      fragment.querySelectorAll(selector).forEach((element) => {
-        element.addEventListener(eventName, eventsMap[eventKey]);
-      });
-    }
-  }
-
-  // HTML conversion
-  render(): void {
-    // Avoid duplicate when render is called again
-    this.parent.innerHTML = "";
-    // render
-    const templateElement = document.createElement("template"); // String to HTML
-    templateElement.innerHTML = this.template();
-    this.bindEvents(templateElement.content);
-
-    this.parent.append(templateElement.content);
   }
 }

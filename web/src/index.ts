@@ -1,11 +1,16 @@
 import { User } from "./models/User";
-import { UserForm } from "./views/UserForm";
+import { UserEdit } from "./views/UserEdit";
 
 const user = User.buildUser({ name: "NAME1", age: 18 });
 
-const userFrom = new UserForm(document.getElementById("root"), user);
+const root = document.getElementById("root");
 
-userFrom.render();
+// Loading HTML
+
+const userEdit = new UserEdit(root, user);
+userEdit.render(); // TSC config Strict null fix
+console.log(userEdit);
+
 /* const collection = User.buildUserCollection();
 
 collection.on("change", () => {
